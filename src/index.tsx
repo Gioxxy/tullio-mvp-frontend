@@ -1,15 +1,30 @@
+import '@fontsource-variable/montserrat';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import HomePage from './HomePage';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import FormPage from './FormPage';
+import ThankyouPage from './ThankyouPage';
+import { ThemeProvider } from '@emotion/react';
+import Theme from './Theme';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={Theme}>
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<HomePage />} />
+          <Route path="form" element={<FormPage />} />
+          <Route path="thankyou" element={<ThankyouPage />} />
+          <Route path="*" element={<HomePage />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   </React.StrictMode>
 );
 
