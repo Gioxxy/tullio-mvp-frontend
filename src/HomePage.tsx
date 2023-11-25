@@ -46,7 +46,7 @@ export default function HomePage() {
             <img src={tullio} height="84px" width="84px" alt="logo" />
             <Typography variant="h1" fontWeight={400} width="100%" color="#6594e8" fontSize={{ xs: 40, md: 60 }} textAlign="center">TULLIO</Typography>
             <Typography variant="h2" fontWeight={400} width="100%" color="#000" fontSize={{ xs: 14, md: 16 }} textAlign="center">
-              Naviga la legge con tullio e trova l'avvocato giusto per te.
+              Naviga la legge con tullio e trova l'avvocato giusto per te
             </Typography>
           </Stack>
           <Stack>

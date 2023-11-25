@@ -1,6 +1,4 @@
-import { Box, Button, Grow, LinearProgress, Stack, TextField, Typography } from "@mui/material";
-import React from "react";
-import { useRef, useState } from "react";
+import { Stack, Typography } from "@mui/material";
 
 export default function ThankyouPage() {
   return (
