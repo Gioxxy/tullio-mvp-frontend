@@ -1,4 +1,4 @@
-import { Box, Button, Grow, Icon, LinearProgress, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Grow, LinearProgress, Slide, Stack, TextField, Typography } from "@mui/material";
 import React from "react";
 import { useRef, useState } from "react";
 import tullio from "./assets/tullio.png";
@@ -10,6 +10,7 @@ export default function HomePage() {
   const searchFieldRef = useRef<HTMLInputElement | null>(null);
   const [data, setData] = useState<{ answer: string, sources: string[] } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showAnswer, setShowAnswer] = useState(false);
 
   const handleSearch = async () => {
     if (searchFieldRef.current) {
@@ -29,12 +30,17 @@ export default function HomePage() {
 
       setData(await result.json());
       setIsLoading(false);
+      setShowAnswer(true);
     }
   }
 
   return (
     <Stack justifyContent="center" alignItems="center" pt="20vh">
-      <Grow in={!data?.answer ?? true}>
+      <Grow in={!showAnswer} addEndListener={() => {
+        if (data?.answer) {
+          setShowAnswer(true);
+        }
+      }}>
         <Stack width={{ xs: "95%", md: "50%" }} spacing={5}>
           <Stack width="100%" alignItems="center">
             <img src={tullio} height="84px" width="84px" alt="logo" />
@@ -70,18 +76,23 @@ export default function HomePage() {
           </Stack>
         </Stack>
       </Grow>
-      <Stack width={{ xs: "80%", md: "50%" }} sx={{ display: !data ? "none" : "block" }} spacing="20px">
-        <Button variant="text" onClick={() => setData(null)} sx={{ color: "#adadad" }}>Nuova domanda</Button>
-        <Typography>{data?.answer ?? ""}</Typography>
-        <Stack direction="row" justifyContent="space-between" mt="10px">
-          <Box>
-            {data?.sources.map((source, index) => (
-              <Button key={index} variant="text" onClick={() => window.open(source)}>FONTE {index + 1}</Button>
-            ))}
-          </Box>
+      <Slide direction="up" in={showAnswer} mountOnEnter unmountOnExit>
+        <Stack width={{ xs: "80%", md: "50%" }} spacing="20px" position="absolute" mt="20vh" alignItems="start">
+          <Button variant="text" onClick={() => {
+            setData(null);
+            setShowAnswer(false);
+          }} sx={{ color: "#adadad" }}>Nuova domanda</Button>
+          <Typography>{data?.answer ?? ""}</Typography>
+          <Stack direction="row" justifyContent="space-between" mt="10px">
+            <Box>
+              {data?.sources.map((source, index) => (
+                <Button key={index} variant="text" onClick={() => window.open(source)}>FONTE {index + 1}</Button>
+              ))}
+            </Box>
+          </Stack>
+          <Button variant="contained" onClick={() => navigate("/form")}>Parla con un professionista</Button>
         </Stack>
-        <Button variant="contained" onClick={() => navigate("/form")}>Parla con un professionista</Button>
-      </Stack>
+      </Slide>
     </Stack>
   );
 }
