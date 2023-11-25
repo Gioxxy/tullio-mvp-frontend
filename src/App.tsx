@@ -13,7 +13,7 @@ function App() {
       const search = searchFieldRef.current.value;
       console.log(search);
       const result = await fetch(
-        `http://localhost:3001/question`,
+        `https://tullio-backend-189b15d8cf00.herokuapp.com/question`,
         {
           method: "POST",
           headers: {
