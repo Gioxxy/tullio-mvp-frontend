@@ -17,7 +17,7 @@ export default function HomePage() {
       const search = searchFieldRef.current.value;
       console.log(search);
       const result = await fetch(
-        `https://tullio-backend-189b15d8cf00.herokuapp.com/question`,
+        `https://api.tullioai.com/question`,
         {
           method: "POST",
           headers: {
@@ -37,7 +37,7 @@ export default function HomePage() {
       <Grow in={!data?.answer ?? true}>
         <Stack width={{ xs: "95%", md: "50%" }} spacing={5}>
           <Stack width="100%" alignItems="center">
-            <img src={tullio} height="84.25px" width="96.75px" alt="logo" />
+            <img src={tullio} height="84px" width="84px" alt="logo" />
             <Typography variant="h1" fontWeight={400} width="100%" color="#6594e8" fontSize={{ xs: 40, md: 60 }} textAlign="center">TULLIO</Typography>
             <Typography variant="h2" fontWeight={400} width="100%" color="#000" fontSize={{ xs: 14, md: 16 }} textAlign="center">
               Naviga la legge con tullio e trova l'avvocato giusto per te.
